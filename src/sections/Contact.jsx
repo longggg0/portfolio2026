@@ -22,7 +22,7 @@ export default function Contact() {
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.message) return alert('Please fill in all required fields.')
 
-    const BOT_TOKEN = '8362037142:AAFk-ynRPp2I546PBE8P4lloR3nuR2z8OOc'
+    const BOT_TOKEN = '8252689913:AAF7NhCvWU8lEOoDFlHl1UJr4AAEjlY-LIw'
     const CHAT_ID   = '1384205752'
 
     const text = `
