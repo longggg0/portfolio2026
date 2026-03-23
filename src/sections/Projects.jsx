@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import posterImg from '../assets/poster.png'
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
@@ -17,7 +18,7 @@ const PROJECTS = [
     adminNote: { email: 'admin@techstore.com', password: 'admin123' },
     tags: ['React', 'Express.js', 'PostgreSQL', 'Tailwind CSS'],
     category: 'Web Apps',
-    image: '/src/assets/poster.png',
+    image: posterImg,
     url: 'https://mini-ecommerce-techstore-5v3b.vercel.app/',
     adminUrl: 'https://mini-ecommerce-techstore-5v3b.vercel.app/admin-dashboard',
   },
@@ -77,12 +78,23 @@ export default function Projects() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = '#2563eb'; e.currentTarget.style.transform = 'translateY(-2px)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = '#30363d'; e.currentTarget.style.transform = 'translateY(0)' }}
               >
-                <div style={{ height: 160, background: '#21262d', overflow: 'hidden' }}>
+                <div style={{ height: isMobile ? 200 : 160, background: '#21262d', overflow: 'hidden', position: 'relative' }}>
                   {p.image ? (
-                    <img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                  ) : (
-                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48 }}>🌐</div>
-                  )}
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+                      onError={e => {
+                        e.currentTarget.style.display = 'none'
+                        e.currentTarget.parentElement.querySelector('.fallback-icon').style.display = 'flex'
+                      }}
+                    />
+                  ) : null}
+                  <div className="fallback-icon" style={{
+                    display: p.image ? 'none' : 'flex',
+                    position: 'absolute', inset: 0,
+                    alignItems: 'center', justifyContent: 'center', fontSize: 48,
+                  }}>🌐</div>
                 </div>
                 <div style={{ padding: 20 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
